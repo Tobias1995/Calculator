@@ -1,0 +1,67 @@
+// Получаем элементы DOM
+const num1Input = document.getElementById('num1');
+const num2Input = document.getElementById('num2');
+const resultDiv = document.getElementById('result');
+
+// Функции математических операций
+function add(a, b) {
+  return a + b;
+}
+
+function subtract(a, b) {
+  return a - b;
+}
+
+function multiply(a, b) {
+  return a * b;
+}
+
+function divide(a, b) {
+  if (b === 0) {
+    return 'Ошибка: деление на ноль!';
+  }
+  return a / b;
+}
+
+// Функция проверки, является ли значение числом
+function isValidNumber(value) {
+  return !isNaN(value) && value !== '' && !isNaN(parseFloat(value));
+}
+
+// Функция выполнения операции
+function calculate(operation) {
+  const num1 = parseFloat(num1Input.value);
+  const num2 = parseFloat(num2Input.value);
+
+  // Проверка на корректность ввода
+  if (!isValidNumber(num1) || !isValidNumber(num2)) {
+    resultDiv.textContent = 'Ошибка: введите корректные числа!';
+    return;
+  }
+
+  // Выполняем операцию
+  let result;
+  switch (operation) {
+    case 'add':
+      result = add(num1, num2);
+      break;
+    case 'subtract':
+      result = subtract(num1, num2);
+      break;
+    case 'multiply':
+      result = multiply(num1, num2);
+      break;
+    case 'divide':
+      result = divide(num1, num2);
+      break;
+  }
+
+  // Выводим результат
+  resultDiv.textContent = `Результат: ${result}`;
+}
+
+// Назначаем обработчики событий кнопкам
+document.getElementById('add').addEventListener('click', () => calculate('add'));
+document.getElementById('subtract').addEventListener('click', () => calculate('subtract'));
+document.getElementById('multiply').addEventListener('click', () => calculate('multiply'));
+document.getElementById('divide').addEventListener('click', () => calculate('divide'));
